@@ -11,6 +11,7 @@ import About from './components/pages/About';
 class App extends Component {
   state = {
     users: [],
+    user: {},
     loading: false,
     alert: null
   };
@@ -27,8 +28,20 @@ class App extends Component {
     this.setState({ users: res.data.items, loading: false });
   };
 
-  // clearing users from state
+  // Get a single Github user
 
+  getUser = async username => {
+    this.setState({ loading: true });
+    const res = await axios.get(
+      `https://api.github.com/users?${username}?client_id=${
+        process.env.REACT_APP_GITHUB_CLIENT_ID
+      }&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    );
+    console.log(res.data);
+    this.setState({ user: res.data.items, loading: false });
+  };
+
+  // clearing users from state
   clearUsers = () => this.setState({ users: [], loading: false });
 
   //setting alert
@@ -42,7 +55,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Navbar title="Github Finder" icon="fab fa-github" />
+          <Navbar title="Github Users Finder" icon="fab fa-github" />
           <div className="container">
             <Alert alert={this.state.alert} />
             <Switch>
@@ -57,7 +70,13 @@ class App extends Component {
                       showClear={users.length > 0 ? true : false}
                       setAlert={this.setAlert}
                     />
-                    <Users loading={loading} users={this.state.users} />
+                    {this.users ? (
+                      <Users loading={loading} users={this.state.users} />
+                    ) : (
+                      <div style={{ textAlign: 'center' }}>
+                        Welcome to this Github search app
+                      </div>
+                    )}
                   </Fragment>
                 )}
               />
