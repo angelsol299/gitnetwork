@@ -53,7 +53,7 @@ class App extends Component {
       }&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
     );
     console.log(res.data);
-    this.setState({ user: res.data, loading: false });
+    this.setState({ repos: res.data, loading: false });
   };
 
   // clearing users from state
@@ -66,7 +66,7 @@ class App extends Component {
   };
 
   render() {
-    const { users, loading, user } = this.state;
+    const { users, loading, user, repos } = this.state;
     return (
       <Router>
         <div className="App">
@@ -99,7 +99,9 @@ class App extends Component {
                     <User
                       {...props}
                       getUser={this.getUser}
+                      getUserRepos={this.getUserRepos}
                       user={user}
+                      repos={repos}
                       loading={loading}
                     />
                   </Fragment>
