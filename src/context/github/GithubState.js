@@ -7,10 +7,8 @@ import {
   SET_LOADING,
   CLEAR_USERS,
   GET_USER,
-  GET_REPOS,
-  GET_USERS
+  GET_REPOS
 } from '../types';
-import githubContext from './githubContext';
 
 const GithubState = props => {
   const initialState = {
