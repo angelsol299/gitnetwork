@@ -35,7 +35,7 @@ const Search = ({ setAlert }) => {
           className="btn btn-dark btn-block"
         />
       </form>
-      {githubContext.users.lenght > 0 && (
+      {githubContext.users.length > 0 && (
         <button
           className="btn btn-light btn-block"
           onClick={githubContext.clearUsers}
@@ -48,8 +48,6 @@ const Search = ({ setAlert }) => {
 };
 
 Search.propTypes = {
-  clearUsers: PropTypes.func.isRequired,
-  showClear: PropTypes.bool.isRequired,
   setAlert: PropTypes.func.isRequired
 };
 

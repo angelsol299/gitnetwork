@@ -66,7 +66,6 @@ const App = () => {
                 render={props => (
                   <Fragment>
                     <Search setAlert={showAlert} />
-
                     <Users />
                   </Fragment>
                 )}
