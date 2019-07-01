@@ -7,7 +7,8 @@ import {
   SET_LOADING,
   CLEAR_USERS,
   GET_USER,
-  GET_REPOS
+  GET_REPOS,
+  GET_USERS
 } from '../types';
 import githubContext from './githubContext';
 
@@ -36,7 +37,19 @@ const GithubState = props => {
     });
   };
   //Get user
-
+  const getUser = async username => {
+    setLoading();
+    const res = await axios.get(
+      `https://api.github.com/users/${username}?client_id=${
+        process.env.REACT_APP_GITHUB_CLIENT_ID
+      }&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    );
+    console.log(res.data);
+    dispatch({
+      type: GET_USER,
+      payload: res.data
+    });
+  };
   //Get repos
 
   //Clear Users
@@ -52,7 +65,8 @@ const GithubState = props => {
         repos: state.repos,
         loading: state.loading,
         searchUsers,
-        clearUsers
+        clearUsers,
+        getUser
       }}
     >
       {props.children}
